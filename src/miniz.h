@@ -184,7 +184,7 @@
 #endif
 
 #include <stddef.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #if !defined(MINIZ_NO_TIME) && !defined(MINIZ_NO_ARCHIVE_APIS)
 #include <time.h>

@@ -1,7 +1,7 @@
 #ifndef SOUND_H__
 #define SOUND_H__
 
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 struct DoomRPG_s;
 struct Image_s;

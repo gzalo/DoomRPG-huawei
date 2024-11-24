@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "sdl_video.h": "c",
+        "doomrpg.h": "c",
+        "entity.h": "c",
+        "stdio.h": "c",
+        "combat.h": "c",
+        "z_zone.h": "c",
+        "string.h": "c",
+        "fluidsynth.h": "c",
+        "doomcanvas.h": "c"
+    }
+}

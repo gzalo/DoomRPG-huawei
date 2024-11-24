@@ -9,7 +9,7 @@
 // https://github.com/svkaiser/Doom64EX/blob/master/src/engine/zone/z_zone.cc
 //-----------------------------------------------------------------------------
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>

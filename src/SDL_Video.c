@@ -1,10 +1,8 @@
 
 
 //Using SDL and standard IO
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
-#include <fluidsynth.h>
 
 #include "DoomRPG.h"
 #include "Game.h"
@@ -12,7 +10,6 @@
 
 SDLVideo_t sdlVideo;
 SDLController_t sdlController;
-FluidSynth_t fluidSynth;
 
 SDLVidModes_t sdlVideoModes[14] =
 {
@@ -29,7 +26,7 @@ SDLVidModes_t sdlVideoModes[14] =
 	{416, 352},
 	{640, 360},
 	{640, 480},
-	{800, 600}
+	{800, 480}
 };
 
 void SDL_InitVideo(void)
@@ -44,7 +41,7 @@ void SDL_InitVideo(void)
 	sdlVideo.fullScreen = false;
 	sdlVideo.vSync = false;
 	sdlVideo.integerScaling = true;
-	sdlVideo.resolutionIndex = 8;
+	sdlVideo.resolutionIndex = 13;
 	sdlVideo.displaySoftKeys = true;
 
 	Game_loadConfig(NULL);
@@ -248,48 +245,10 @@ void SDL_RenderDrawCircle(SDL_Renderer* renderer, int x, int y, int r)
 void SDL_InitAudio(void)
 {
 	printf("SDL_InitAudio\n");
-
-	fluidSynth.settings = NULL;
-	fluidSynth.synth = NULL;
-	fluidSynth.adriver = NULL;
-
-	// create the settings
-	fluidSynth.settings = new_fluid_settings();
-	if (fluidSynth.settings == NULL) {
-		DoomRPG_Error("Failed to create the settings");
-	}
-
-	// create the synthesizer
-	fluidSynth.synth = new_fluid_synth(fluidSynth.settings);
-	if (fluidSynth.synth == NULL) {
-		DoomRPG_Error("Failed to create the synthesizer");
-	}
-
-	// create the audio driver
-	fluidSynth.adriver = new_fluid_audio_driver(fluidSynth.settings, fluidSynth.synth);
-	if (fluidSynth.synth == NULL) {
-		DoomRPG_Error("Failed to create the audio driver");
-	}
-
-	if (fluid_is_soundfont("gm.sf2")) {
-		fluid_synth_sfload(fluidSynth.synth, "gm.sf2", 1);
-	}
-	else {
-		DoomRPG_Error("Cannot find the soundfont %s file", "gm.sf2");
-	}
-
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-		DoomRPG_Error("Could not initialize SDL Mixer: %s", Mix_GetError());
-	}
 }
 
 void SDL_CloseAudio(void) {
 
-	delete_fluid_audio_driver(fluidSynth.adriver);
-	delete_fluid_synth(fluidSynth.synth);
-	delete_fluid_settings(fluidSynth.settings);
-
-	Mix_Quit();
 }
 
 //--------------------

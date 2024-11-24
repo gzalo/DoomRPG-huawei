@@ -1,5 +1,5 @@
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -299,7 +299,7 @@ void Hud_drawEffects(Hud_t* hud)
     }
 
     if (doomRpg->player->berserkerTics) {
-        // Bloqueo esta línea ya que la puse en otra función.
+        // Bloqueo esta lï¿½nea ya que la puse en otra funciï¿½n.
         // I block this line since I put it in another function.
         //{
         //    Render_setBerserkColor(doomRpg->render);

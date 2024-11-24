@@ -1,10 +1,8 @@
 //Using SDL and standard IO
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <zlib.h>
 
-#include "Z_Zone.h"
 #include "DoomRPG.h"
 #include "DoomCanvas.h"
 #include "Player.h"
@@ -21,7 +19,6 @@ int main(int argc, char* args[])
 	int		mouseTime = 0;
 	int		key, oldKey, mouse_Button;
 
-	Z_Init();
 	SDL_InitVideo();
 	SDL_InitAudio();
 

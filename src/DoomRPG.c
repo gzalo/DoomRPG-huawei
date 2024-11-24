@@ -1,9 +1,8 @@
 
 //Using SDL and standard IO
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 
-#include "Z_Zone.h"
 #include "DoomRPG.h"
 #include "DoomCanvas.h"
 #include "Render.h"
@@ -164,7 +163,6 @@ unsigned int DoomRPG_GetUpTimeMS(void)
 }
 
 int DoomRPG_freeMemory(void) { // 0x1EBFC
-	return Z_FreeMemory();
 }
 
 // New Function
@@ -400,7 +398,7 @@ static void setBind(int* keyBinds, int keycode)
 {
 	int i;
 
-	// Examina si existe anteriormente, si es así, se desvinculará de la lista
+	// Examina si existe anteriormente, si es asï¿½, se desvincularï¿½ de la lista
 	// Examines whether it exists previously, if so, it will be unbind from the list
 	for (i = 0; i < KEYBINDS_MAX; i++) {
 		if (keyBinds[i] == keycode) {

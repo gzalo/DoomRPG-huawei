@@ -1,5 +1,5 @@
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -821,8 +821,8 @@ void Menu_initMenu(Menu_t* menu, int i)
 			MenuItem_Set2(&menuSystem->items[menuSystem->numItems++], "Pos:", text, 0, 0);
 
 			
-			// En el código fuente original se obtiene la memoria RAM del dispositivo
-			// In the actual source code, the device’s RAM memory is obtained
+			// En el cï¿½digo fuente original se obtiene la memoria RAM del dispositivo
+			// In the actual source code, the deviceï¿½s RAM memory is obtained
 			// SDL_snprintf(text, sizeof(text), "%dK", ((menu->doomRpg->m_DeviceInfo).dwRAM + 1023) / 1024);
 			
 			// Actualmente se obtiene el total de toda la momoria inicializada
@@ -845,9 +845,6 @@ void Menu_initMenu(Menu_t* menu, int i)
 
 			int iVar8 = 0;
 			int iVar3 = 0;
-			do {
-				iVar8 = menu->doomRpg->sound->soundChannel[iVar3].size + iVar8;
-			} while (++iVar3 < 10);
 
 			SDL_snprintf(text, sizeof(text), "%dK", (iVar8 + 1023) / 1024);
 			MenuItem_Set2(&menuSystem->items[menuSystem->numItems++], "Sound:", text, 0, 0);

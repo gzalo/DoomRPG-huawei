@@ -1,6 +1,6 @@
 
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <stdio.h>
 
 #include "DoomRPG.h"
@@ -67,7 +67,7 @@ Sound_t* Sound_init(Sound_t* sound, DoomRPG_t* doomRpg)
 	//printf("Sound volume is: %d\n", Mix_Volume(-1, -1));
 
 	// Allowed range of synth.gain is 0.0 to 10.0
-	fluid_settings_setnum(fluidSynth.settings, "synth.gain", 1.0 * ((sound->volume * MIX_MAX_VOLUME) / 100) / 128.0);
+	//fluid_settings_setnum(fluidSynth.settings, "synth.gain", 1.0 * ((sound->volume * MIX_MAX_VOLUME) / 100) / 128.0);
 
 #if INIT_ALLSOUNDS
 	sound->audioFiles = SDL_malloc(sizeof(AudioFile_t) * MAX_AUDIOFILES);
@@ -89,8 +89,8 @@ Sound_t* Sound_init(Sound_t* sound, DoomRPG_t* doomRpg)
 			//}
 			//sound->audioFiles[i].ptr = Mix_LoadMUS_RW(rw, SDL_TRUE);
 
-			sound->audioFiles[i].ptr = (fluid_player_t*)new_fluid_player(fluidSynth.synth);
-			fluid_player_add_mem((fluid_player_t*)sound->audioFiles[i].ptr, fdata, fSize);
+			//sound->audioFiles[i].ptr = (fluid_player_t*)new_fluid_player(fluidSynth.synth);
+			//fluid_player_add_mem((fluid_player_t*)sound->audioFiles[i].ptr, fdata, fSize);
 
 			SDL_free(fdata);
 		}
@@ -119,7 +119,7 @@ void Sound_free(Sound_t* sound, boolean freePtr)
 	for (int i = 0; i < MAX_AUDIOFILES; i++) {
 		if ((i == 0) || (i == 1) || (i == 3)) { // Midi Files
 			//Mix_FreeMusic((Mix_Music*)sound->audioFiles[i].ptr);
-			delete_fluid_player((fluid_player_t*)sound->audioFiles[i].ptr);
+			//delete_fluid_player((fluid_player_t*)sound->audioFiles[i].ptr);
 		}
 		else {
 			Mix_FreeChunk((Mix_Chunk*)sound->audioFiles[i].ptr);
@@ -143,11 +143,11 @@ void Sound_stopSounds(Sound_t* sound)
 				sound->soundChannel[chan].flags = 0;
 			}*/
 
-			if (fluid_player_get_status(sound->soundChannel[chan].mediaAudioMusic) == FLUID_PLAYER_PLAYING) {
+			/*if (fluid_player_get_status(sound->soundChannel[chan].mediaAudioMusic) == FLUID_PLAYER_PLAYING) {
 				fluid_player_stop(sound->soundChannel[chan].mediaAudioMusic);
 				fluid_player_seek(sound->soundChannel[chan].mediaAudioMusic, 0);
 				sound->soundChannel[chan].flags = 0;
-			}
+			}*/
 		}
 		else {
 			if (Mix_Playing(chan) && !(sound->soundChannel[chan].flags & SND_FLG_NOFORCESTOP)) {
@@ -183,10 +183,10 @@ void Sound_freeSound(Sound_t* sound, int chan)
 	}*/
 
 	if (sChannel->mediaAudioMusic) {
-		if (fluid_player_get_status(sChannel->mediaAudioMusic) == FLUID_PLAYER_PLAYING) {
+		/*if (fluid_player_get_status(sChannel->mediaAudioMusic) == FLUID_PLAYER_PLAYING) {
 			fluid_player_stop(sChannel->mediaAudioMusic);
 			fluid_player_seek(sChannel->mediaAudioMusic, 0);
-		}
+		}*/
 	}
 
 	if (sChannel->mediaAudioMusic) {
@@ -315,7 +315,7 @@ void Sound_readySound(Sound_t* sound, int chan)
 	if (sChannel->flags & SND_FLG_ISMUSIC) {
 		//Mix_VolumeMusic((sound->volume * MIX_MAX_VOLUME) / 100);
 		// Allowed range of synth.gain is 0.0 to 10.0
-		fluid_settings_setnum(fluidSynth.settings, "synth.gain", 1.0 * ((sound->volume * MIX_MAX_VOLUME) / 100) / 128.0);
+		//fluid_settings_setnum(fluidSynth.settings, "synth.gain", 1.0 * ((sound->volume * MIX_MAX_VOLUME) / 100) / 128.0);
 	}
 	else {
 		Mix_VolumeChunk(sound->soundChannel[chan].mediaAudioSound, (sound->volume * MIX_MAX_VOLUME) / 100);
@@ -369,8 +369,8 @@ void Sound_playSound(Sound_t* sound, int resourceID, byte flags, int priority)
 					sound->priority = priority;
 					if (flags & SND_FLG_ISMUSIC) {
 						//Mix_PlayMusic(sound->soundChannel[sound->channel].mediaAudioMusic, (flags & SND_FLG_LOOP) ? -1 : 0);
-						fluid_player_set_loop(sound->soundChannel[sound->channel].mediaAudioMusic, (flags & SND_FLG_LOOP) ? -1 : 0);
-						fluid_player_play(sound->soundChannel[sound->channel].mediaAudioMusic);
+						//fluid_player_set_loop(sound->soundChannel[sound->channel].mediaAudioMusic, (flags & SND_FLG_LOOP) ? -1 : 0);
+						//fluid_player_play(sound->soundChannel[sound->channel].mediaAudioMusic);
 
 					}
 					else {
@@ -412,10 +412,10 @@ void Sound_updateVolume(Sound_t* sound)
 				Mix_VolumeMusic((sound->volume * MIX_MAX_VOLUME) / 100);
 			}*/
 
-			if (fluid_player_get_status(sound->soundChannel[chan].mediaAudioMusic) == FLUID_PLAYER_PLAYING) {
+			/*if (fluid_player_get_status(sound->soundChannel[chan].mediaAudioMusic) == FLUID_PLAYER_PLAYING) {
 				// Allowed range of synth.gain is 0.0 to 10.0
 				fluid_settings_setnum(fluidSynth.settings, "synth.gain", 1.0 * ((sound->volume * MIX_MAX_VOLUME) / 100) / 128.0);
-			}
+			}*/
 		}
 		else {
 			if (Mix_Playing(chan)) {
